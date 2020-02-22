@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\components\ClientXml;
+use app\components\Provider;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -62,6 +64,19 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionSendQuery()
+    {
+        $data = [
+            "firstName" => "Vasya",
+            "lastName" => "Pupkin",
+            "dateOfBirth" => "1984-07-31",
+            "Salary"    	=> "1000",
+            "creditScore" => "good"
+        ];
+        $query = new ClientXml();
+        $query->sendQuery($data);
     }
 
     /**
