@@ -29,4 +29,12 @@ class Provider
         }
         return $result;
     }
+
+    public static function prepareArray($data)
+    {
+        unset($data['id']);
+        $data['creditScore'] = self::getCreditScore($data['creditScore']);
+
+        return $data;
+    }
 }

@@ -5,7 +5,7 @@ use yii\helpers\Html;
 $this->title = 'Send Query';
 ?>
 <div>
-    <p><?=Html::a(\Yii::t('app', 'Send XML Query'), ['site/send-query'], ['class' => 'btn btn-success'])?></p>
+    <p><?=Html::a(\Yii::t('app', 'Send XML Query'), ['site/send-xml'], ['class' => 'btn btn-success'])?> <?=Html::a(\Yii::t('app', 'Send JSON Query'), ['site/send-json'], ['class' => 'btn btn-success'])?></p>
     <pre>$data = [
             "firstName" => "Vasya",
             "lastName" => "Pupkin",

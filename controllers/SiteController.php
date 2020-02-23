@@ -2,8 +2,10 @@
 
 namespace app\controllers;
 
+use app\components\ClientJson;
 use app\components\ClientXml;
 use app\components\Provider;
+use app\models\UserInfo;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -66,17 +68,20 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
-    public function actionSendQuery()
+    public function actionSendXml()
     {
-        $data = [
-            "firstName" => "Vasya",
-            "lastName" => "Pupkin",
-            "dateOfBirth" => "1984-07-31",
-            "Salary"    	=> "1000",
-            "creditScore" => "good"
-        ];
+        $data = UserInfo::getUserInfoById(99);
         $query = new ClientXml();
-        $query->sendQuery($data);
+
+        return $query->sendQuery( $data );
+    }
+
+    public function actionSendJson()
+    {
+        $data = UserInfo::getUserInfoById(99);
+        $query = new ClientJson();
+
+        return $query->sendQuery( (array) $data );
     }
 
     /**

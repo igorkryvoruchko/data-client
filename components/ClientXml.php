@@ -17,11 +17,11 @@ class ClientXml
     {
         return '<?xml version="1.0"?>
 <userInfo version="1.6">
-    <firstName>'.$data['firstName'].'</firstName>
-    <lastName>'.$data['lastName'].'</lastName>
-    <salary>'.$data['Salary'].'</salary>
-    <age>'.Provider::getPersonAge($data['dateOfBirth']).'</age>
-    <creditScore>'.Provider::getCreditScore($data['creditScore']).'</creditScore>
+    <firstName>'.$data->firstName.'</firstName>
+    <lastName>'.$data->lastName.'</lastName>
+    <salary>'.$data->Salary.'</salary>
+    <age>'.Provider::getPersonAge($data->dateOfBirth).'</age>
+    <creditScore>'.Provider::getCreditScore($data->creditScore).'</creditScore>
 </userInfo>
 ';
     }
@@ -38,14 +38,13 @@ class ClientXml
         curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->getHeaders($xml));
 
-        $data = curl_exec($ch);
+        $result = curl_exec($ch);
 
         if(curl_errno($ch)) {
             print curl_error($ch);
         } else {
             curl_close($ch);
         }
-        return $data;
-
+        return $result;
     }
 }
