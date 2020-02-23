@@ -73,7 +73,7 @@ class SiteController extends Controller
         $data = UserInfo::getUserInfoById(99);
         $query = new ClientXml();
 
-        return $query->sendQuery( $data );
+        return $query->sendQuery($data);
     }
 
     public function actionSendJson()
@@ -82,6 +82,7 @@ class SiteController extends Controller
         $query = new ClientJson();
 
         return $query->sendQuery( (array) $data );
+
     }
 
     /**

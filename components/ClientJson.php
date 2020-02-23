@@ -4,6 +4,8 @@
 namespace app\components;
 
 
+use yii\helpers\VarDumper;
+
 class ClientJson
 {
     public function sendQuery($data)
@@ -21,6 +23,9 @@ class ClientJson
             print curl_error($ch);
         } else {
             curl_close($ch);
+        }
+        if(!$result){
+            return false;
         }
         return $this->getResult($result);
     }

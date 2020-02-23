@@ -41,10 +41,37 @@ class ClientXml
         $result = curl_exec($ch);
 
         if(curl_errno($ch)) {
-            print curl_error($ch);
+            return curl_error($ch);
         } else {
             curl_close($ch);
         }
+        if(!$result){
+            return false;
+        }
+        return $this->getResult($result);
+    }
+
+    public function getResult($resultXml)
+    {
+        $result = "";
+
+        $resultObj = simplexml_load_string($resultXml);
+        switch ($resultObj->returnCode){
+            case 1:
+                $result = $resultObj->returnCodeDescription . ": Transaction id = ".$resultObj->transactionId;
+                break;
+            case 0:
+                if($resultObj->returnCodeDescription == "REJECT"){
+                    $result = "Your query was ".$resultObj->returnCodeDescription."ed!";
+                } elseif ($resultObj->returnCodeDescription == "ERROR") {
+                    $result = $resultObj->returnCodeDescription .": ".$resultObj->returnError;
+                }
+                break;
+            default:
+                $result = var_dump($resultObj);
+                break;
+        }
+
         return $result;
     }
 }
